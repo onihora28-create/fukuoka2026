@@ -19,8 +19,6 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        /* スムーススクロール（これはCSSなので安全です） */
         html { scroll-behavior: smooth; }
 
         body {
@@ -34,37 +32,32 @@
 
         a { color: #1e90ff; text-decoration: none; font-weight: bold; }
 
-        /* --- 安全なCSSロードアニメーション --- */
         @keyframes safeFadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 絵文字ヘッダー --- */
+        /* --- ヒーロー（画像背景版） --- */
         .hero {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-            color: #2f3542;
-            padding: 40px 20px 30px;
+            position: relative;
+            color: #ffffff;
+            padding: 80px 20px 70px;
             text-align: center;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
-            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
-            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             z-index: 10;
+            overflow: hidden;
+            background-color: #ff9a9e;
+            background-image: 
+                linear-gradient(135deg, rgba(255, 81, 47, 0.55) 0%, rgba(240, 152, 25, 0.4) 50%, rgba(255, 71, 87, 0.55) 100%),
+                url('https://images.unsplash.com/photo-1759784839707-a32c910a7747?w=1200&q=80&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         }
-        .hero-icon { font-size: 3.5rem; margin-bottom: 10px; line-height: 1; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1)); }
-        .hero h1 { font-size: 1.6rem; font-weight: 900; margin-bottom: 5px; letter-spacing: 0.5px; }
-        .hero p { font-size: 0.95rem; font-weight: bold; color: #57606f; }
-        .weather-badge {
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 20px;
-            padding: 8px 16px;
-            margin-top: 15px;
-            display: inline-block;
-            font-size: 0.85rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 2px dashed #ff9a9e;
-        }
+        .hero h1 { font-size: 1.9rem; font-weight: 900; margin-bottom: 8px; letter-spacing: 1px; }
+        .hero p { font-size: 1rem; font-weight: bold; color: #ffffff; opacity: 0.95; }
 
         /* --- フローティングナビ --- */
         nav {
@@ -72,6 +65,7 @@
             top: 12px;
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 100;
             display: flex;
             justify-content: space-around;
@@ -95,7 +89,18 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.03);
             border: 3px solid #ffffff;
             overflow: hidden;
-            animation: safeFadeIn 0.8s ease-out forwards; /* 確実な表示アニメーション */
+            animation: safeFadeIn 0.8s ease-out forwards;
+            position: relative;
+        }
+
+        /* 行動表セクションだけ、屋台画像をうっすら背景に */
+        #timeline {
+            background-color: var(--card-bg);
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.96), rgba(255,255,255,0.96)),
+                url('https://images.unsplash.com/photo-1752400844793-ba72ac5c1bff?w=800&q=70&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
 
         h2 {
@@ -104,9 +109,7 @@
         }
         h2::before { content: '✨'; font-size: 1.2rem; }
 
-        /* =========================================
-           マトリックス表
-        ========================================= */
+        /* マトリックス表 */
         .day-header {
             background: var(--secondary-gradient); color: white; padding: 8px 16px;
             border-radius: 20px; font-weight: bold; font-size: 0.95rem; margin: 20px 0 12px 0;
@@ -124,6 +127,7 @@
         .table-wrapper {
             overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px;
             border: 2px solid var(--border-color); margin-bottom: 15px;
+            background: #fff;
         }
         .schedule-matrix { width: 100%; border-collapse: collapse; font-size: 0.75rem; white-space: nowrap; }
         .schedule-matrix th, .schedule-matrix td { border: 1px solid var(--border-color); padding: 8px 4px; text-align: center; vertical-align: middle; min-width: 40px; }
@@ -136,19 +140,35 @@
         .st-warn { background-color: #ff6b81; color: white; font-weight:bold; font-size: 0.7rem; border-radius:4px; }
         .st-ng { background-color: #f1f2f6; color: #a4b0be; opacity: 0.6; }
 
-        /* --- イベント・持ち物等のCSS --- */
+        /* --- カード（画像ヘッダー版・絵文字バッジ無し） --- */
         .card { 
             background: #ffffff; border-radius: 20px; margin-bottom: 20px; 
             box-shadow: 0 8px 24px rgba(0,0,0,0.06); border: 2px solid #f1f2f6;
+            overflow: hidden;
         }
-        .card-emoji-header { height: 100px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; border-top-left-radius: 18px; border-top-right-radius: 18px; }
+
+        .card-photo-header {
+            position: relative;
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            background-color: #e8e8e8; /* fallback */
+        }
+        .card-photo-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.25) 100%);
+            pointer-events: none;
+        }
+
         .card-body { padding: 18px; }
         .card-tag { background-color: #ffeaa7; color: #d63031; font-size: 0.75rem; font-weight: 900; padding: 4px 10px; border-radius: 12px; display: inline-block; margin-bottom: 10px; }
         .card-title { font-size: 1.15rem; font-weight: 900; margin-bottom: 8px; color: #2d3436; }
         .card-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; font-weight: bold; }
-        .gourmet-info { background-color: #f8f9fa; border-left: 4px solid var(--primary-gradient); padding: 12px; font-size: 0.85rem; border-radius: 8px; margin-bottom: 12px; }
+        .gourmet-info { background-color: #f8f9fa; border-left: 4px solid var(--food-accent); padding: 12px; font-size: 0.85rem; border-radius: 8px; margin-bottom: 12px; }
         
-        /* ボタン系ポップデザイン */
+        /* ボタン系 */
         .btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
         .btn-link, .btn-map {
             font-size: 0.8rem; color: white; padding: 8px 14px; border-radius: 20px; font-weight: bold;
@@ -171,7 +191,6 @@
         .check-item input:checked + span { color: #a4b0be; text-decoration: line-through; }
         .sub-sec { font-size: 0.95rem; font-weight: 900; color: var(--accent-color); margin: 20px 0 8px 0; background: #ffeaa7; display: inline-block; padding: 4px 12px; border-radius: 12px; }
 
-        /* --- 持ち物リセットボタン --- */
         .checklist-reset {
             font-size: 0.75rem; color: var(--text-muted); background: #f1f2f6;
             border: none; border-radius: 12px; padding: 5px 12px; cursor: pointer;
@@ -179,47 +198,56 @@
         }
         .checklist-reset:active { background: #dfe4ea; }
 
-        /* --- 柳川オプション --- */
-        .option-box {
+        /* --- 3日目グループ：糸島 / 柳川 並列 --- */
+        .day3-group {
             background: linear-gradient(135deg, #e0f7fa 0%, #f0fdf4 100%);
             border: 2px dashed #4dd0e1;
             border-radius: 20px;
             padding: 20px 16px;
             margin-top: 24px;
         }
-        .option-title {
+        .day3-group-title {
             font-size: 1.1rem; font-weight: 900; color: #00838f;
-            display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+            margin-bottom: 6px;
         }
+        .day3-group-sub {
+            font-size: 0.83rem; color: #00838f; font-weight: bold; margin-bottom: 14px;
+        }
+        .day3-group .card {
+            margin-bottom: 14px;
+            border: 1.5px solid #b2ebf2;
+        }
+        .day3-group .card:last-child { margin-bottom: 0; }
         .option-badge {
             background: #4dd0e1; color: white; font-size: 0.7rem;
             padding: 3px 9px; border-radius: 10px; font-weight: 900;
+            display: inline-block; vertical-align: middle; margin-left: 6px;
         }
-        .option-item {
-            background: white; border-radius: 14px; padding: 12px 14px;
-            margin-bottom: 10px; border: 1.5px solid #b2ebf2;
-            font-size: 0.88rem;
+
+        .footer-credit {
+            text-align: center; font-size: 0.8rem; color: var(--text-muted); 
+            margin-top: 30px; font-weight: bold;
         }
-        .option-item-title { font-weight: 900; color: #2f3542; margin-bottom: 4px; }
-        .option-item-desc { color: var(--text-muted); line-height: 1.5; }
+        .footer-credit a {
+            display: inline-block; padding: 10px 20px; background: #fff; 
+            border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body>
 
-    <!-- ヘッダー -->
+    <!-- ヘッダー（飛行機の翼背景） -->
     <div class="hero" id="top">
-        <div class="hero-icon">✈️🍜⚾️</div>
         <h1>福岡飯と野球観戦ツアー</h1>
         <p>2026.05.29(金) 〜 05.31(日)</p>
-        <div class="weather-badge">夜は冷えるので<strong>「上着」</strong>が必須！🧥</div>
     </div>
 
     <!-- 目次ナビ -->
     <nav>
-        <a href="#timeline">🗓 行動表</a>
-        <a href="#events">🍖 イベント</a>
-        <a href="#stay">🏠 宿泊・精算</a>
-        <a href="#belongings">🎒 持ち物</a>
+        <a href="#timeline">行動表</a>
+        <a href="#events">イベント</a>
+        <a href="#stay">宿泊・精算</a>
+        <a href="#belongings">持ち物</a>
     </nav>
 
     <div class="container">
@@ -278,7 +306,7 @@
             
             <!-- あまの -->
             <div class="card">
-                <div class="card-emoji-header" style="background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);">🐟🍶</div>
+                <div class="card-photo-header" style="background-image: url('https://images.unsplash.com/photo-1610379942474-17ac53c6b74a?w=800&q=80&auto=format&fit=crop');"></div>
                 <div class="card-body">
                     <span class="card-tag">1日目：夕食</span>
                     <div class="card-title">博多居酒屋 あまの</div>
@@ -291,9 +319,9 @@
                 </div>
             </div>
 
-            <!-- 長浜屋台 -->
+            <!-- 長浜屋台（実物の福岡屋台） -->
             <div class="card">
-                <div class="card-emoji-header" style="background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">🍜🍻</div>
+                <div class="card-photo-header" style="background-image: url('https://images.unsplash.com/photo-1752400844793-ba72ac5c1bff?w=800&q=80&auto=format&fit=crop');"></div>
                 <div class="card-body">
                     <span class="card-tag">1日目：二次会</span>
                     <div class="card-title">長浜屋台街（予約済）</div>
@@ -308,7 +336,7 @@
 
             <!-- スナックアデリータ -->
             <div class="card">
-                <div class="card-emoji-header" style="background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);">🎤🥃</div>
+                <div class="card-photo-header" style="background-image: url('https://images.unsplash.com/photo-1663870316273-48b6058e712d?w=800&q=80&auto=format&fit=crop');"></div>
                 <div class="card-body">
                     <span class="card-tag">1日目：三次会</span>
                     <div class="card-title">スナック アデリータ</div>
@@ -323,7 +351,7 @@
 
             <!-- PayPayドーム -->
             <div class="card">
-                <div class="card-emoji-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">⚾️🏟️</div>
+                <div class="card-photo-header" style="background-image: url('https://images.unsplash.com/photo-1682384157322-32ab3932da07?w=800&q=80&auto=format&fit=crop');"></div>
                 <div class="card-body">
                     <span class="card-tag">2日目：メインイベント</span>
                     <div class="card-title">PayPayドーム観戦</div>
@@ -336,24 +364,25 @@
                 </div>
             </div>
 
-            <!-- 水たき 長野 -->
+            <!-- 水たき 長野（公式OGP画像を試す。失敗時は背景色で退化） -->
             <div class="card">
-                <div class="card-emoji-header" style="background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);">🍲🐓</div>
+                <div class="card-photo-header" style="background-image: url('https://mizutakinagano.com/ogp.jpg'); background-color: #d4a574;"></div>
                 <div class="card-body">
                     <span class="card-tag">2日目：夕食</span>
                     <div class="card-title">水たき 長野</div>
                     <div class="card-meta">📍 対馬小路1-6</div>
                     <div class="gourmet-info"><strong>🔥 ココが美味い！</strong><br>まずは濃厚な「鶏スープ」を味わってから、ホロホロの骨付き肉と自家製ポン酢で！</div>
                     <div class="btn-group">
+                        <a href="https://mizutakinagano.com/" target="_blank" class="btn-link">🔗 公式サイト</a>
                         <a href="https://tabelog.com/fukuoka/A4001/A400102/40000010/" target="_blank" class="btn-link">🔗 食べログ</a>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=水たき長野+福岡" target="_blank" class="btn-map">🧭 現在地からルート案内</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=水たき長野+福岡" target="_blank" class="btn-map">🧭 ルート案内</a>
                     </div>
                 </div>
             </div>
 
             <!-- 鉄なべ餃子 -->
             <div class="card">
-                <div class="card-emoji-header" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);">🥟🍺</div>
+                <div class="card-photo-header" style="background-image: url('https://images.unsplash.com/photo-1738681336104-608b4e7dc3b0?w=800&q=80&auto=format&fit=crop');"></div>
                 <div class="card-body">
                     <span class="card-tag">2日目：二次会</span>
                     <div class="card-title">鉄なべ餃子 中洲本店</div>
@@ -366,46 +395,56 @@
                 </div>
             </div>
 
-            <!-- 糸島 -->
-            <div class="card">
-                <div class="card-emoji-header" style="background: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);">🚗🌴</div>
-                <div class="card-body">
-                    <span class="card-tag">3日目：観光ドライブ</span>
-                    <div class="card-title">糸島ドライブ</div>
-                    <div class="card-meta">📍 糸島市方面</div>
-                    <div class="gourmet-info"><strong>🚗 見どころ</strong><br>「二見ヶ浦の白い鳥居」などSNS映えスポット！道中で食べる「糸島プリン」や海鮮丼を計画中。</div>
-                    <div class="btn-group">
-                        <a href="https://kanko-itoshima.jp/" target="_blank" class="btn-link">🔗 観光ナビ</a>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=糸島+二見ヶ浦" target="_blank" class="btn-map">🧭 現在地からルート案内</a>
-                    </div>
-                </div>
-            </div>
+            <!-- 3日目グループ：糸島 / 柳川 / うなぎ を並列表示 -->
+            <div class="day3-group">
+                <div class="day3-group-title">🚗 3日目プラン <span class="option-badge">検討中</span></div>
+                <p class="day3-group-sub">糸島ドライブ or 柳川川下り＆うなぎ、どちらかを選択！</p>
 
-            <!-- 3日目オプション：柳川 -->
-            <div class="option-box">
-                <div class="option-title">
-                    🛶 3日目 別案プラン <span class="option-badge">検討中</span>
-                </div>
-                <p style="font-size:0.83rem; color:#00838f; font-weight:bold; margin-bottom:14px;">糸島ドライブの代わりに「柳川川下り＆うなぎ」プランも浮上中！</p>
-
-                <div class="option-item">
-                    <div class="option-item-title">🛶 柳川川下り</div>
-                    <div class="option-item-desc">どんこ舟に乗って、柳川の水路をのんびり1時間ほどクルーズ。船頭さんが歌いながら案内してくれる、ここだけの体験！</div>
-                    <div class="btn-group" style="margin-top:8px;">
-                        <a href="https://www.yanagawa-net.com/" target="_blank" class="btn-link">🔗 川下り情報</a>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=柳川+川下り" target="_blank" class="btn-map">🧭 ルート案内</a>
+                <!-- 糸島 -->
+                <div class="card">
+                    <div class="card-photo-header" style="background-image: url('https://images.unsplash.com/photo-1754195451615-d4ca5e4f726b?w=800&q=80&auto=format&fit=crop');"></div>
+                    <div class="card-body">
+                        <span class="card-tag" style="background:#b2ebf2; color:#006064;">案A：糸島ドライブ</span>
+                        <div class="card-title">糸島ドライブ</div>
+                        <div class="card-meta">📍 糸島市方面</div>
+                        <div class="gourmet-info"><strong>🚗 見どころ</strong><br>「二見ヶ浦の白い鳥居」などSNS映えスポット！道中で食べる「糸島プリン」や海鮮丼を計画中。</div>
+                        <div class="btn-group">
+                            <a href="https://kanko-itoshima.jp/" target="_blank" class="btn-link">🔗 観光ナビ</a>
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=糸島+二見ヶ浦" target="_blank" class="btn-map">🧭 ルート案内</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="option-item">
-                    <div class="option-item-title">🐟 うなぎ（せいろ蒸し）</div>
-                    <div class="option-item-desc">柳川名物「うなぎのせいろ蒸し」は、タレご飯の上にほぐしたうなぎを乗せた絶品料理。若松屋・原口うなぎ屋などが有名。</div>
-                    <div class="btn-group" style="margin-top:8px;">
-                        <a href="https://www.google.com/maps/search/柳川+うなぎ+せいろ蒸し" target="_blank" class="btn-map">🧭 近くのうなぎ屋を探す</a>
+                <!-- 柳川川下り -->
+                <div class="card">
+                    <div class="card-photo-header" style="background-image: url('https://images.unsplash.com/photo-1552624189-8b2ea330fbf4?w=800&q=80&auto=format&fit=crop');"></div>
+                    <div class="card-body">
+                        <span class="card-tag" style="background:#b2ebf2; color:#006064;">案B：柳川川下り</span>
+                        <div class="card-title">柳川川下り</div>
+                        <div class="card-meta">📍 柳川市</div>
+                        <div class="gourmet-info"><strong>🛶 体験！</strong><br>どんこ舟に乗って、柳川の水路をのんびり1時間ほどクルーズ。船頭さんが歌いながら案内してくれる、ここだけの体験！</div>
+                        <div class="btn-group">
+                            <a href="https://www.yanagawa-net.com/" target="_blank" class="btn-link">🔗 川下り情報</a>
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=柳川+川下り" target="_blank" class="btn-map">🧭 ルート案内</a>
+                        </div>
                     </div>
                 </div>
 
-                <p style="font-size:0.78rem; color:#888; margin-top:4px;">※ 福岡市内から柳川まで約1時間。車またはJR+西鉄で行けます。</p>
+                <!-- 柳川うなぎ -->
+                <div class="card">
+                    <div class="card-photo-header" style="background-image: url('https://images.unsplash.com/photo-1740895362852-8ea88c9ab65d?w=800&q=80&auto=format&fit=crop');"></div>
+                    <div class="card-body">
+                        <span class="card-tag" style="background:#b2ebf2; color:#006064;">案B：柳川ランチ</span>
+                        <div class="card-title">うなぎのせいろ蒸し</div>
+                        <div class="card-meta">📍 柳川市内（若松屋・原口うなぎ屋など）</div>
+                        <div class="gourmet-info"><strong>🔥 ココが美味い！</strong><br>柳川名物「うなぎのせいろ蒸し」は、タレご飯の上にほぐしたうなぎを乗せた絶品料理。</div>
+                        <div class="btn-group">
+                            <a href="https://www.google.com/maps/search/柳川+うなぎ+せいろ蒸し" target="_blank" class="btn-map">🧭 近くのうなぎ屋を探す</a>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="font-size:0.78rem; color:#00838f; margin-top:10px; text-align:center; font-weight:bold;">※ 福岡市内から柳川まで約1時間。車またはJR+西鉄で行けます。</p>
             </div>
         </section>
 
@@ -440,8 +479,8 @@
             <label class="check-item"><input type="checkbox"><span>パジャマ（部屋着）</span></label>
         </section>
 
-        <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 30px; font-weight: bold;">
-            <a href="#top" style="display:inline-block; padding:10px 20px; background:#fff; border-radius:20px; box-shadow:0 4px 10px rgba(0,0,0,0.05);">▲ 一番上に戻る</a>
+        <div class="footer-credit">
+            <a href="#top">▲ 一番上に戻る</a>
             <p style="margin-top: 15px;">Created for FUKUOKA TRIP 2026 🍻</p>
         </div>
     </div>
@@ -472,12 +511,10 @@
             localStorage.removeItem(STORAGE_KEY);
         }
 
-        // 各チェックボックスに保存リスナーをつける
         document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
             cb.addEventListener('change', saveChecks);
         });
 
-        // ページ読み込み時に復元
         loadChecks();
     </script>
 </body>
