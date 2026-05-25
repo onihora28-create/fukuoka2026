@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福岡飯と野球観戦ツアー 2026</title>
+    <style>
+        /* --- ポップ＆モダン デザインシステム --- */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #FF512F 0%, #F09819 100%);
+            --secondary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --accent-color: #FF4757;
+            --bg-color: #fcf8f5; 
+            --card-bg: #ffffff;
+            --text-color: #2f3542;
+            --text-muted: #747d8c;
+            --border-color: #f1f2f6;
+            --food-accent: #ff6b81;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* スムーススクロール（これはCSSなので安全です） */
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 15px;
+            padding-bottom: 80px;
+        }
+
+        a { color: #1e90ff; text-decoration: none; font-weight: bold; }
+
+        /* --- 安全なCSSロードアニメーション --- */
+        @keyframes safeFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 絵文字ヘッダー --- */
+        .hero {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            color: #2f3542;
+            padding: 40px 20px 30px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+        .hero-icon { font-size: 3.5rem; margin-bottom: 10px; line-height: 1; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1)); }
+        .hero h1 { font-size: 1.6rem; font-weight: 900; margin-bottom: 5px; letter-spacing: 0.5px; }
+        .hero p { font-size: 0.95rem; font-weight: bold; color: #57606f; }
+        .weather-badge {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin-top: 15px;
+            display: inline-block;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px dashed #ff9a9e;
+        }
+
+        /* --- フローティングナビ --- */
+        nav {
+            position: sticky;
+            top: 12px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 5px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-radius: 30px;
+            margin: -20px 15px 20px 15px; 
+            border: 1px solid #ffeaa7;
+        }
+        nav a { font-size: 0.8rem; color: var(--text-muted); padding: 8px 12px; border-radius: 20px; transition: 0.2s; }
+        nav a:active { background: #ffeaa7; color: #2d3436; transform: scale(0.95); }
+
+        /* --- レイアウト --- */
+        .container { padding: 0 16px; max-width: 600px; margin: 0 auto; }
+        
+        section {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 3px solid #ffffff;
+            overflow: hidden;
+            animation: safeFadeIn 0.8s ease-out forwards; /* 確実な表示アニメーション */
+        }
+
+        h2 {
+            font-size: 1.3rem; font-weight: 900; color: #2f3542; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        h2::before { content: '✨'; font-size: 1.2rem; }
+
+        /* =========================================
+           マトリックス表
+        ========================================= */
+        .day-header {
+            background: var(--secondary-gradient); color: white; padding: 8px 16px;
+            border-radius: 20px; font-weight: bold; font-size: 0.95rem; margin: 20px 0 12px 0;
+            display: inline-block; box-shadow: 0 4px 10px rgba(79, 172, 254, 0.4);
+        }
+        .day-header:first-of-type { margin-top: 0; }
+        
+        .swipe-hint {
+            font-size: 0.8rem; color: var(--accent-color); margin-bottom: 8px; font-weight: bold;
+            animation: bounce-x 2s infinite; display: inline-block;
+            background: #ffeaa7; padding: 4px 12px; border-radius: 20px;
+        }
+        @keyframes bounce-x { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+        .table-wrapper {
+            overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px;
+            border: 2px solid var(--border-color); margin-bottom: 15px;
+        }
+        .schedule-matrix { width: 100%; border-collapse: collapse; font-size: 0.75rem; white-space: nowrap; }
+        .schedule-matrix th, .schedule-matrix td { border: 1px solid var(--border-color); padding: 8px 4px; text-align: center; vertical-align: middle; min-width: 40px; }
+        .schedule-matrix th:first-child, .schedule-matrix td:first-child {
+            position: sticky; left: 0; background-color: #f1f2f6; z-index: 2; min-width: 85px; font-weight: bold; color: #2f3542; box-shadow: 3px 0 6px rgba(0,0,0,0.05);
+        }
+        .schedule-matrix th { background-color: #dfe4ea; color: #2f3542; font-weight: 900; }
+        .schedule-matrix th:first-child { z-index: 3; }
+        .st-ok { background-color: #eccc68; font-weight: bold; color: #2f3542; } 
+        .st-warn { background-color: #ff6b81; color: white; font-weight:bold; font-size: 0.7rem; border-radius:4px; }
+        .st-ng { background-color: #f1f2f6; color: #a4b0be; opacity: 0.6; }
+
+        /* --- イベント・持ち物等のCSS --- */
+        .card { 
+            background: #ffffff; border-radius: 20px; margin-bottom: 20px; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06); border: 2px solid #f1f2f6;
+        }
+        .card-emoji-header { height: 100px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; border-top-left-radius: 18px; border-top-right-radius: 18px; }
+        .card-body { padding: 18px; }
+        .card-tag { background-color: #ffeaa7; color: #d63031; font-size: 0.75rem; font-weight: 900; padding: 4px 10px; border-radius: 12px; display: inline-block; margin-bottom: 10px; }
+        .card-title { font-size: 1.15rem; font-weight: 900; margin-bottom: 8px; color: #2d3436; }
+        .card-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; font-weight: bold; }
+        .gourmet-info { background-color: #f8f9fa; border-left: 4px solid var(--primary-gradient); padding: 12px; font-size: 0.85rem; border-radius: 8px; margin-bottom: 12px; }
+        
+        /* ボタン系ポップデザイン */
+        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        .btn-link, .btn-map {
+            font-size: 0.8rem; color: white; padding: 8px 14px; border-radius: 20px; font-weight: bold;
+            display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .btn-link { background: var(--secondary-gradient); }
+        .btn-map { background: var(--primary-gradient); }
+        .btn-walica {
+            display: block; width: 100%; text-align: center; background: linear-gradient(135deg, #00b894, #55efc4);
+            color: white; font-size: 1.1rem; font-weight: 900; padding: 14px; border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0, 184, 148, 0.4); margin-top: 15px; text-decoration: none;
+        }
+
+        .stay-item { background: #f8f9fa; padding: 14px; border-radius: 16px; margin-bottom: 12px; border: 2px dashed #dfe4ea; }
+        .stay-name { font-weight: 900; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem; }
+        .btn-airbnb { background-color: #ff4757; color: white; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; }
+        
+        .check-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 2px dotted #f1f2f6; font-weight: bold; }
+        .check-item input { width: 22px; height: 22px; margin-right: 12px; accent-color: #ff4757; }
+        .check-item input:checked + span { color: #a4b0be; text-decoration: line-through; }
+        .sub-sec { font-size: 0.95rem; font-weight: 900; color: var(--accent-color); margin: 20px 0 8px 0; background: #ffeaa7; display: inline-block; padding: 4px 12px; border-radius: 12px; }
+
+        /* --- 持ち物リセットボタン --- */
+        .checklist-reset {
+            font-size: 0.75rem; color: var(--text-muted); background: #f1f2f6;
+            border: none; border-radius: 12px; padding: 5px 12px; cursor: pointer;
+            font-weight: bold; float: right; margin-top: -2px;
+        }
+        .checklist-reset:active { background: #dfe4ea; }
+
+        /* --- 柳川オプション --- */
+        .option-box {
+            background: linear-gradient(135deg, #e0f7fa 0%, #f0fdf4 100%);
+            border: 2px dashed #4dd0e1;
+            border-radius: 20px;
+            padding: 20px 16px;
+            margin-top: 24px;
+        }
+        .option-title {
+            font-size: 1.1rem; font-weight: 900; color: #00838f;
+            display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+        }
+        .option-badge {
+            background: #4dd0e1; color: white; font-size: 0.7rem;
+            padding: 3px 9px; border-radius: 10px; font-weight: 900;
+        }
+        .option-item {
+            background: white; border-radius: 14px; padding: 12px 14px;
+            margin-bottom: 10px; border: 1.5px solid #b2ebf2;
+            font-size: 0.88rem;
+        }
+        .option-item-title { font-weight: 900; color: #2f3542; margin-bottom: 4px; }
+        .option-item-desc { color: var(--text-muted); line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <div class="hero" id="top">
+        <div class="hero-icon">✈️🍜⚾️</div>
+        <h1>福岡飯と野球観戦ツアー</h1>
+        <p>2026.05.29(金) 〜 05.31(日)</p>
+        <div class="weather-badge">夜は冷えるので<strong>「上着」</strong>が必須！🧥</div>
+    </div>
+
+    <!-- 目次ナビ -->
+    <nav>
+        <a href="#timeline">🗓 行動表</a>
+        <a href="#events">🍖 イベント</a>
+        <a href="#stay">🏠 宿泊・精算</a>
+        <a href="#belongings">🎒 持ち物</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- ② 行動マトリックス -->
+        <section id="timeline">
+            <h2>メンバー別 行動表</h2>
+            <div class="swipe-hint">👉 表を横にスワイプ！</div>
+            
+            <!-- Day 1 -->
+            <div class="day-header">Day 1：5/29 (金)</div>
+            <div class="table-wrapper">
+                <table class="schedule-matrix">
+                    <thead><tr><th>時間 / 予定</th><th>うら</th><th>ぶん</th><th>日野</th><th>るー</th><th>かば</th><th>尾越</th><th>さな</th><th>かつ</th><th>まみ</th><th>みか</th><th>あか</th></tr></thead>
+                    <tbody>
+                        <tr><td>17:00迄<br><span style="font-size:0.6rem;font-weight:normal;">(到着目安)</span></td><td class="st-ok">〇</td><td class="st-warn">16:55</td><td class="st-ng">✈️</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ng">❌</td></tr>
+                        <tr><td>18:00<br>あまの🐟</td><td class="st-ok">🐟</td><td class="st-warn">微遅</td><td class="st-warn">遅/欠</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ng">❌</td></tr>
+                        <tr><td>21:00<br>長浜屋台🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ng">❌</td></tr>
+                        <tr><td>23:00<br>スナック🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ng">❌</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day-header">Day 2：5/30 (土)</div>
+            <div class="table-wrapper">
+                <table class="schedule-matrix">
+                    <thead><tr><th>時間 / 予定</th><th>うら</th><th>ぶん</th><th>日野</th><th>るー</th><th>かば</th><th>尾越</th><th>さな</th><th>かつ</th><th>まみ</th><th>みか</th><th>あか</th></tr></thead>
+                    <tbody>
+                        <tr><td>午前〜昼<br><span style="font-size:0.6rem;font-weight:normal;">あかね合流</span></td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">合流</td></tr>
+                        <tr><td>14:00<br>ドーム⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td></tr>
+                        <tr><td>18:00<br>長野🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td></tr>
+                        <tr><td>20:30<br>鉄なべ🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ng">❌</td><td class="st-warn">離脱</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day-header">Day 3：5/31 (日)</div>
+            <div class="table-wrapper">
+                <table class="schedule-matrix">
+                    <thead><tr><th>時間 / 予定</th><th>うら</th><th>ぶん</th><th>日野</th><th>るー</th><th>かば</th><th>尾越</th><th>さな</th><th>かつ</th><th>まみ</th><th>みか</th><th>あか</th></tr></thead>
+                    <tbody>
+                        <tr><td>09:30</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ng">帰✈️</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ok">☀️</td></tr>
+                        <tr><td>日中<br>糸島🚗</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ng">❌</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ok">🚗</td></tr>
+                        <tr><td>夕方〜夜</td><td class="st-ng">帰✈️</td><td class="st-ng">帰✈️</td><td class="st-ng">❌</td><td class="st-ng">帰✈️</td><td class="st-ng">帰✈️</td><td class="st-ng">帰✈️</td><td class="st-ng">帰✈️</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ng">帰✈️</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!-- ③ 各イベントの詳細 -->
+        <section id="events">
+            <h2>グルメ＆イベント詳細</h2>
+            
+            <!-- あまの -->
+            <div class="card">
+                <div class="card-emoji-header" style="background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);">🐟🍶</div>
+                <div class="card-body">
+                    <span class="card-tag">1日目：夕食</span>
+                    <div class="card-title">博多居酒屋 あまの</div>
+                    <div class="card-meta">📍 博多駅周辺（博多駅前2丁目19-2）</div>
+                    <div class="gourmet-info"><strong>🔥 ココが美味い！</strong><br>博多の新鮮すぎる「ゴマサバ」と「イカの活き造り」が絶品！</div>
+                    <div class="btn-group">
+                        <a href="https://tabelog.com/fukuoka/A4001/A400103/40042330/" target="_blank" class="btn-link">🔗 食べログ</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=福岡市博多区博多駅前2丁目19-2+あまの" target="_blank" class="btn-map">🧭 現在地からルート案内</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 長浜屋台 -->
+            <div class="card">
+                <div class="card-emoji-header" style="background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">🍜🍻</div>
+                <div class="card-body">
+                    <span class="card-tag">1日目：二次会</span>
+                    <div class="card-title">長浜屋台街（予約済）</div>
+                    <div class="card-meta">📍 長浜エリア</div>
+                    <div class="gourmet-info"><strong>🔥 ココが美味い！</strong><br>豚骨ラーメンはもちろん、焼きラーメンや明太玉子焼きをつまみながら乾杯！</div>
+                    <div class="btn-group">
+                        <a href="https://fukuoka-leapup.jp/gourmet/202306.7336" target="_blank" class="btn-link">🔗 屋台情報</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=長浜屋台街" target="_blank" class="btn-map">🧭 現在地からルート案内</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- スナックアデリータ -->
+            <div class="card">
+                <div class="card-emoji-header" style="background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);">🎤🥃</div>
+                <div class="card-body">
+                    <span class="card-tag">1日目：三次会</span>
+                    <div class="card-title">スナック アデリータ</div>
+                    <div class="card-meta">📍 天神・中洲周辺エリア</div>
+                    <div class="gourmet-info"><strong>🎤 ナイトイベント</strong><br>ディープな福岡の夜の締めくくり。全員で肩を組んで熱唱タイム！</div>
+                    <div class="btn-group">
+                        <a href="https://tabelog.com/fukuoka/A4001/A400104/40043462/" target="_blank" class="btn-link">🔗 食べログ</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=スナックアデリータ+福岡" target="_blank" class="btn-map">🧭 現在地からルート案内</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PayPayドーム -->
+            <div class="card">
+                <div class="card-emoji-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">⚾️🏟️</div>
+                <div class="card-body">
+                    <span class="card-tag">2日目：メインイベント</span>
+                    <div class="card-title">PayPayドーム観戦</div>
+                    <div class="card-meta">📍 福岡市中央区地行浜</div>
+                    <div class="gourmet-info" style="background-color: #fff0f5; border-left-color: #ff6b81;"><strong>🎉 全員集合！ 🎉</strong><br>球場飯をつまみながら熱気あふれる交流戦を全力応援！</div>
+                    <div class="btn-group">
+                        <a href="https://www.softbankhawks.co.jp/stadium/" target="_blank" class="btn-link">🔗 球場公式</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=PayPayドーム" target="_blank" class="btn-map">🧭 現在地からルート案内</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 水たき 長野 -->
+            <div class="card">
+                <div class="card-emoji-header" style="background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);">🍲🐓</div>
+                <div class="card-body">
+                    <span class="card-tag">2日目：夕食</span>
+                    <div class="card-title">水たき 長野</div>
+                    <div class="card-meta">📍 対馬小路1-6</div>
+                    <div class="gourmet-info"><strong>🔥 ココが美味い！</strong><br>まずは濃厚な「鶏スープ」を味わってから、ホロホロの骨付き肉と自家製ポン酢で！</div>
+                    <div class="btn-group">
+                        <a href="https://tabelog.com/fukuoka/A4001/A400102/40000010/" target="_blank" class="btn-link">🔗 食べログ</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=水たき長野+福岡" target="_blank" class="btn-map">🧭 現在地からルート案内</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 鉄なべ餃子 -->
+            <div class="card">
+                <div class="card-emoji-header" style="background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);">🥟🍺</div>
+                <div class="card-body">
+                    <span class="card-tag">2日目：二次会</span>
+                    <div class="card-title">鉄なべ餃子 中洲本店</div>
+                    <div class="card-meta">📍 西中洲1-5</div>
+                    <div class="gourmet-info"><strong>🔥 ココが美味い！</strong><br>熱々の鉄鍋に敷き詰められたカリッカリの一口餃子！柚子胡椒をつけてビールで！</div>
+                    <div class="btn-group">
+                        <a href="https://tabelog.com/fukuoka/A4001/A400103/40000910/" target="_blank" class="btn-link">🔗 食べログ</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=鉄なべ中洲本店" target="_blank" class="btn-map">🧭 現在地からルート案内</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 糸島 -->
+            <div class="card">
+                <div class="card-emoji-header" style="background: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);">🚗🌴</div>
+                <div class="card-body">
+                    <span class="card-tag">3日目：観光ドライブ</span>
+                    <div class="card-title">糸島ドライブ</div>
+                    <div class="card-meta">📍 糸島市方面</div>
+                    <div class="gourmet-info"><strong>🚗 見どころ</strong><br>「二見ヶ浦の白い鳥居」などSNS映えスポット！道中で食べる「糸島プリン」や海鮮丼を計画中。</div>
+                    <div class="btn-group">
+                        <a href="https://kanko-itoshima.jp/" target="_blank" class="btn-link">🔗 観光ナビ</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=糸島+二見ヶ浦" target="_blank" class="btn-map">🧭 現在地からルート案内</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3日目オプション：柳川 -->
+            <div class="option-box">
+                <div class="option-title">
+                    🛶 3日目 別案プラン <span class="option-badge">検討中</span>
+                </div>
+                <p style="font-size:0.83rem; color:#00838f; font-weight:bold; margin-bottom:14px;">糸島ドライブの代わりに「柳川川下り＆うなぎ」プランも浮上中！</p>
+
+                <div class="option-item">
+                    <div class="option-item-title">🛶 柳川川下り</div>
+                    <div class="option-item-desc">どんこ舟に乗って、柳川の水路をのんびり1時間ほどクルーズ。船頭さんが歌いながら案内してくれる、ここだけの体験！</div>
+                    <div class="btn-group" style="margin-top:8px;">
+                        <a href="https://www.yanagawa-net.com/" target="_blank" class="btn-link">🔗 川下り情報</a>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=柳川+川下り" target="_blank" class="btn-map">🧭 ルート案内</a>
+                    </div>
+                </div>
+
+                <div class="option-item">
+                    <div class="option-item-title">🐟 うなぎ（せいろ蒸し）</div>
+                    <div class="option-item-desc">柳川名物「うなぎのせいろ蒸し」は、タレご飯の上にほぐしたうなぎを乗せた絶品料理。若松屋・原口うなぎ屋などが有名。</div>
+                    <div class="btn-group" style="margin-top:8px;">
+                        <a href="https://www.google.com/maps/search/柳川+うなぎ+せいろ蒸し" target="_blank" class="btn-map">🧭 近くのうなぎ屋を探す</a>
+                    </div>
+                </div>
+
+                <p style="font-size:0.78rem; color:#888; margin-top:4px;">※ 福岡市内から柳川まで約1時間。車またはJR+西鉄で行けます。</p>
+            </div>
+        </section>
+
+        <!-- ④ 宿泊・精算 -->
+        <section id="stay">
+            <h2>宿泊・精算ルール</h2>
+            <div class="stay-item">
+                <div class="stay-name"><span>🏠 春吉Airbnb組</span><a href="https://www.airbnb.jp/rooms/1431586588762423360" target="_blank" class="btn-airbnb">部屋を見る</a></div>
+                <p style="font-size: 0.85rem; margin-top: 6px; color:#444;">ぶんぺい、日野、るー、かば、尾越</p>
+            </div>
+            <div class="stay-item"><div class="stay-name">🏨 ホテル組</div><p style="font-size: 0.85rem; margin-top: 6px; color:#444;">さなえ、かつ兄、まみ、みか、あかね</p></div>
+            <div class="stay-item"><div class="stay-name">🏠 自宅</div><p style="font-size: 0.85rem; margin-top: 6px; color:#444;">うらっちょ</p></div>
+
+            <div style="margin-top: 25px;">
+                <p style="font-size: 0.85rem; color: #d63031; font-weight: bold; text-align: center;">💴 支払いは誰かが一括！後で神アプリで精算！</p>
+                <a href="https://walica.jp/group/01KRRCFQ402AARD1RAWJP72TQE/detail?from=copyUrl" target="_blank" class="btn-walica">💰 割り勘精算（Walica）はこちら</a>
+            </div>
+        </section>
+
+        <!-- ⑤ 持ち物リスト -->
+        <section id="belongings">
+            <h2>持ち物リスト <button class="checklist-reset" onclick="resetChecks()">✕ リセット</button></h2>
+            <div class="sub-sec">🚨 全員絶対に忘れるなリスト</div>
+            <label class="check-item"><input type="checkbox"><span>身分証明書・保険証</span></label>
+            <label class="check-item"><input type="checkbox"><span>スマホ充電器＆モバイルバッテリー</span></label>
+            <label class="check-item"><input type="checkbox"><span>夜の屋台用の「上着」（マジで必須！）</span></label>
+            <label class="check-item"><input type="checkbox"><span>折りたたみ傘</span></label>
+            <label class="check-item"><input type="checkbox"><span>PayPay / LINE Payへの残高チャージ</span></label>
+
+            <div class="sub-sec" style="margin-top:20px;">🏡 Airbnb組追加リスト</div>
+            <label class="check-item"><input type="checkbox"><span>歯ブラシ・洗面用具一式</span></label>
+            <label class="check-item"><input type="checkbox"><span>パジャマ（部屋着）</span></label>
+        </section>
+
+        <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 30px; font-weight: bold;">
+            <a href="#top" style="display:inline-block; padding:10px 20px; background:#fff; border-radius:20px; box-shadow:0 4px 10px rgba(0,0,0,0.05);">▲ 一番上に戻る</a>
+            <p style="margin-top: 15px;">Created for FUKUOKA TRIP 2026 🍻</p>
+        </div>
+    </div>
+    <script>
+        // --- 持ち物チェックリスト：localStorage で状態保存 ---
+        const STORAGE_KEY = 'fukuoka2026_checks';
+
+        function saveChecks() {
+            const checks = {};
+            document.querySelectorAll('.check-item input[type="checkbox"]').forEach((cb, i) => {
+                checks[i] = cb.checked;
+            });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(checks));
+        }
+
+        function loadChecks() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return;
+            const checks = JSON.parse(saved);
+            document.querySelectorAll('.check-item input[type="checkbox"]').forEach((cb, i) => {
+                if (checks[i]) cb.checked = true;
+            });
+        }
+
+        function resetChecks() {
+            if (!confirm('チェックを全部リセットしますか？')) return;
+            document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => cb.checked = false);
+            localStorage.removeItem(STORAGE_KEY);
+        }
+
+        // 各チェックボックスに保存リスナーをつける
+        document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', saveChecks);
+        });
+
+        // ページ読み込み時に復元
+        loadChecks();
+    </script>
+</body>
+</html>
