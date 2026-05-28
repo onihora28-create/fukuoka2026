@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -139,6 +140,8 @@
         .st-ok { background-color: #eccc68; font-weight: bold; color: #2f3542; } 
         .st-warn { background-color: #ff6b81; color: white; font-weight:bold; font-size: 0.7rem; border-radius:4px; }
         .st-ng { background-color: #f1f2f6; color: #a4b0be; opacity: 0.6; }
+        .st-time { background-color: #4facfe; color: white; font-weight: bold; font-size: 0.68rem; }
+        .st-time-soft { background-color: #d6f0ff; color: #2f3542; font-weight: bold; font-size: 0.68rem; }
 
         /* --- カード（画像ヘッダー版・絵文字バッジ無し） --- */
         .card { 
@@ -263,9 +266,9 @@
                 <table class="schedule-matrix">
                     <thead><tr><th>時間 / 予定</th><th>うら</th><th>ぶん</th><th>日野</th><th>るー</th><th>かば</th><th>尾越</th><th>さな</th><th>かつ</th><th>まみ</th><th>みか</th><th>あか</th></tr></thead>
                     <tbody>
-                        <tr><td>17:00迄<br><span style="font-size:0.6rem;font-weight:normal;">(到着目安)</span></td><td class="st-ok">〇</td><td class="st-warn">16:55</td><td class="st-ng">✈️</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ng">❌</td></tr>
-                        <tr><td>18:00<br>あまの🐟</td><td class="st-ok">🐟</td><td class="st-warn">微遅</td><td class="st-warn">遅/欠</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ng">❌</td></tr>
-                        <tr><td>21:00<br>長浜屋台🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ng">❌</td></tr>
+                        <tr><td>✈️ 福岡着</td><td class="st-time">12:55</td><td class="st-time">16:55</td><td class="st-time">18:20</td><td class="st-time">14:40</td><td class="st-time-soft">前日</td><td class="st-time">22:過</td><td class="st-time-soft">未定</td><td class="st-time-soft">未定</td><td class="st-time">14:30</td><td class="st-time-soft">未定</td><td class="st-ng">30日</td></tr>
+                        <tr><td>18:00<br>あまの🐟</td><td class="st-ok">🐟</td><td class="st-warn">微遅</td><td class="st-warn">遅/欠</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ng">❌</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ok">🐟</td><td class="st-ng">❌</td><td class="st-ng">❌</td></tr>
+                        <tr><td>21:00<br>長浜屋台🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ng">❌</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ok">🍜</td><td class="st-ng">❌</td></tr>
                         <tr><td>23:00<br>スナック🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ok">🎤</td><td class="st-ng">❌</td></tr>
                     </tbody>
                 </table>
@@ -277,10 +280,11 @@
                 <table class="schedule-matrix">
                     <thead><tr><th>時間 / 予定</th><th>うら</th><th>ぶん</th><th>日野</th><th>るー</th><th>かば</th><th>尾越</th><th>さな</th><th>かつ</th><th>まみ</th><th>みか</th><th>あか</th></tr></thead>
                     <tbody>
-                        <tr><td>午前〜昼<br><span style="font-size:0.6rem;font-weight:normal;">あかね合流</span></td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">合流</td></tr>
-                        <tr><td>14:00<br>ドーム⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td></tr>
+                        <tr><td>午前〜昼<br><span style="font-size:0.6rem;font-weight:normal;">あかね合流</span></td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-ok">〇</td><td class="st-time">昼着</td></tr>
+                        <tr><td>14:00<br>ドーム⚾️<br><span style="font-size:0.6rem;font-weight:normal;">9人参加</span></td><td class="st-ng">❌</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ok">⚾️</td><td class="st-ng">❌</td></tr>
                         <tr><td>18:00<br>長野🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td><td class="st-ok">🍲</td></tr>
-                        <tr><td>20:30<br>鉄なべ🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ng">❌</td><td class="st-warn">離脱</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td></tr>
+                        <tr><td>20:30<br>鉄なべ🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ok">🥟</td><td class="st-ng">❌</td><td class="st-warn">21:15発</td><td class="st-ng">❌</td><td class="st-ok">🥟</td></tr>
+                        <tr><td>✈️ 福岡発<br><span style="font-size:0.6rem;font-weight:normal;">(この日帰る人)</span></td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-time">夜発</td><td class="st-time">21:15</td><td class="st-time">夜発</td><td class="st-ng">-</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -291,9 +295,9 @@
                 <table class="schedule-matrix">
                     <thead><tr><th>時間 / 予定</th><th>うら</th><th>ぶん</th><th>日野</th><th>るー</th><th>かば</th><th>尾越</th><th>さな</th><th>かつ</th><th>まみ</th><th>みか</th><th>あか</th></tr></thead>
                     <tbody>
-                        <tr><td>09:30</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ng">帰✈️</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ok">☀️</td></tr>
-                        <tr><td>日中<br>糸島🚗</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ng">❌</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ok">🚗</td></tr>
-                        <tr><td>夕方〜夜</td><td class="st-ng">帰✈️</td><td class="st-ng">帰✈️</td><td class="st-ng">❌</td><td class="st-ng">帰✈️</td><td class="st-ng">帰✈️</td><td class="st-ng">帰✈️</td><td class="st-ng">帰✈️</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ng">❌</td><td class="st-ng">帰✈️</td></tr>
+                        <tr><td>午前<br>解散・自由行動</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-warn">9:30発</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ok">☀️</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ok">☀️</td></tr>
+                        <tr><td>日中<br>糸島🚗<br>or 柳川🛶</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ng">❌</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ok">🚗</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ok">🚗</td></tr>
+                        <tr><td>✈️ 福岡発</td><td class="st-time">16:35</td><td class="st-time">17:10</td><td class="st-time-soft">9:30</td><td class="st-time">16:35</td><td class="st-time-soft">夜発</td><td class="st-time-soft">夜発</td><td class="st-time">17:05</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-ng">-</td><td class="st-time">17:35</td></tr>
                     </tbody>
                 </table>
             </div>
